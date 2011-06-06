@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <!-- Primitive attributes and elements. -->
+  <xs:attribute name="format" type="xs:string"/>
+  <xs:attribute name="id" type="xs:string"/>
+  <xs:attribute name="default" type="xs:string"/>
+  <xs:attribute name="name" type="xs:string"/>
+  <xs:attribute name="enabled" type="xs:boolean"/>
+  <xs:attribute name="value" type="xs:string"/>
+  
+  <xs:element name="Description" type="xs:string"/>
+  <xs:element name="Author" type="xs:string"/>
+  <xs:element name="Directory" type="xs:string"/>
+  
+  <!-- Complex elements. -->
+  <xs:element name="CreationDate">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:string">
+          <xs:attribute ref="format"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="Reviewers">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Entry" minOccurs="0" maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:attribute ref="id"/>
+            <xs:attribute ref="name"/>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="Files">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Entry" minOccurs="0" maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:attribute ref="name"/>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>  
+
+  <xs:element name="FieldItem">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Entry" minOccurs="0" maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:attribute ref="name"/>
+          </xs:complexType>
+        </xs:element>        
+      </xs:sequence>
+      <xs:attribute ref="id"/>
+      <xs:attribute ref="default"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="FieldItems">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="FieldItem" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="Filter">
+    <xs:complexType>
+      <xs:attribute ref="name"/>
+      <xs:attribute ref="value"/>
+      <xs:attribute ref="enabled"/>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="Phase">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="Filter" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+      <xs:attribute ref="name"/>
+      <xs:attribute ref="enabled"/>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="Filters">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="Phase" minOccurs="3" maxOccurs="3"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="Review">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="Description" minOccurs="1" maxOccurs="1"/>
+        <xs:element ref="Author" minOccurs="1" maxOccurs="1"/>
+        <xs:element ref="CreationDate" minOccurs="1" maxOccurs="1"/>
+        <xs:element ref="Directory" minOccurs="1" maxOccurs="1"/>
+        <xs:element ref="Reviewers" minOccurs="1" maxOccurs="1"/>
+        <xs:element ref="Files" minOccurs="1" maxOccurs="1"/>
+        <xs:element ref="FieldItems" minOccurs="1" maxOccurs="1"/>
+        <xs:element ref="Filters" minOccurs="1" maxOccurs="1"/>
+      </xs:sequence>
+      <xs:attribute ref="id"/>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="Property">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="Review" minOccurs="1" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  
+</xs:schema>

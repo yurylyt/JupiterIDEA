@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <!-- Primitive attributes and elements -->
+  <xs:attribute name="name" type="xs:string" />
+  <xs:attribute name="width" type="xs:int" />
+  <xs:attribute name="resizable" type="xs:boolean" />
+  <xs:attribute name="enable" type="xs:boolean" />
+  <xs:attribute name="default" type="xs:string" />
+
+  <xs:element name="UpdateUrl" type="xs:string" />
+  <xs:element name="EnableUpdate" type="xs:boolean" />
+  <xs:element name="EnableFilter" type="xs:boolean" />
+
+  <!-- Complex elements -->
+  <xs:element name="ColumnEntry">
+    <xs:complexType>
+      <xs:attribute ref="name" />
+      <xs:attribute ref="width" />
+      <xs:attribute ref="resizable" />
+      <xs:attribute ref="enable" />
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Phase">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="ColumnEntry" minOccurs="16" maxOccurs="16" />
+      </xs:sequence>
+      <xs:attribute ref="name" />
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="View">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="Phase" minOccurs="3" maxOccurs="3" />
+      </xs:sequence>
+      <xs:attribute ref="default" />
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="General">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="UpdateUrl" minOccurs="1" maxOccurs="1" />
+        <xs:element ref="EnableUpdate" minOccurs="1" maxOccurs="1" />
+        <xs:element ref="EnableFilter" minOccurs="1" maxOccurs="1" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Preference">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="General" minOccurs="1" maxOccurs="1" />
+        <xs:element ref="View" minOccurs="1" maxOccurs="1" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+</xs:schema>

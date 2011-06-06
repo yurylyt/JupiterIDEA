@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <!-- Primitive attributes and elements. -->
+  <xs:attribute name="id" type="xs:string"/>
+  <xs:attribute name="line" type="xs:int"/>
+  <xs:attribute name="format" type="xs:string"/>
+  
+  <xs:element name="ReviewerId" type="xs:string"/>
+  <xs:element name="AssignedTo" type="xs:string"/>
+  <xs:element name="Type" type="xs:string"/>
+  <xs:element name="Severity" type="xs:string"/>
+  <xs:element name="Summary" type="xs:string"/>
+  <xs:element name="Description" type="xs:string"/>
+  <xs:element name="Annotation" type="xs:string"/>
+  <xs:element name="Revision" type="xs:string"/>
+  <xs:element name="Resolution" type="xs:string"/>
+  <xs:element name="Status" type="xs:string"/>
+  
+  <!-- Complex elements. -->
+  <xs:element name="CreationDate">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:string">
+          <xs:attribute ref="format"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="LastModificationDate">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:string">
+          <xs:attribute ref="format"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="ReviewIssueMeta">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="CreationDate" minOccurs="1" maxOccurs="1"/>
+        <xs:element ref="LastModificationDate" minOccurs="1" maxOccurs="1"/>      
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="File">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:string">
+          <xs:attribute ref="line"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="ReviewIssue">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="ReviewIssueMeta" minOccurs="1" maxOccurs="1"/>
+        <xs:element ref="ReviewerId" minOccurs="1" maxOccurs="1"/>
+        <xs:element ref="AssignedTo" minOccurs="1" maxOccurs="1"/>
+        <xs:element ref="File" minOccurs="1" maxOccurs="1"/>
+        <xs:element ref="Type" minOccurs="1" maxOccurs="1"/>
+        <xs:element ref="Severity" minOccurs="1" maxOccurs="1"/>
+        <xs:element ref="Summary" minOccurs="1" maxOccurs="1"/>
+        <xs:element ref="Description" minOccurs="1" maxOccurs="1"/>
+        <xs:element ref="Annotation" minOccurs="1" maxOccurs="1"/>
+        <xs:element ref="Revision" minOccurs="1" maxOccurs="1"/>
+        <xs:element ref="Resolution" minOccurs="1" maxOccurs="1"/>
+        <xs:element ref="Status" minOccurs="1" maxOccurs="1"/>
+      </xs:sequence>
+      <xs:attribute ref="id"/>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="Review">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="ReviewIssue" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+      <xs:attribute ref="id"/>
+    </xs:complexType>
+  </xs:element>
+  
+</xs:schema>
