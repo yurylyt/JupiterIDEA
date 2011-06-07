@@ -19,10 +19,11 @@
     </actions>
 
     <extensions defaultExtensionNs="com.intellij">
-        <projectService serviceInterface="org.jupiter.idea.tool.ReviewsView"
-                        serviceImplementation="org.jupiter.idea.tool.ReviewsView"/>
+        <projectService serviceImplementation="org.jupiter.idea.ui.ReviewsView"/>
+        <projectService serviceInterface="org.jupiter.service.ReviewProvider"
+                serviceImplementation="org.jupiter.service.ReviewProviderImpl"/>
         <toolWindow id="Jupiter Review" secondary="true" anchor="bottom"
-                    factoryClass="org.jupiter.idea.tool.ReviewsToolWindowFactory"
+                    factoryClass="org.jupiter.idea.ui.ReviewsToolWindowFactory"
                     icon="/icons/jupiter.gif">
 
         </toolWindow>
