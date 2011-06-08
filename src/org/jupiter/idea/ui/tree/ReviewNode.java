@@ -18,6 +18,9 @@ import java.util.*;
  * Time: 23:33
  */
 public class ReviewNode extends AbstractTreeNode<Review> {
+
+    private Map<String,Collection<ReviewIssue>> grouping;
+
     protected ReviewNode(Project project, Review value) {
         super(project, value);
     }
@@ -25,7 +28,7 @@ public class ReviewNode extends AbstractTreeNode<Review> {
     @NotNull
     @Override
     public Collection<? extends AbstractTreeNode> getChildren() {
-        Map<String, Collection<ReviewIssue>> map = groupByFiles();
+        Map<String, Collection<ReviewIssue>> map = getGrouping();
         VirtualFile baseDir = myProject.getBaseDir();
         PsiManager psiManager = PsiManager.getInstance(myProject);
 
@@ -48,19 +51,27 @@ public class ReviewNode extends AbstractTreeNode<Review> {
 
     @Override
     protected void update(PresentationData presentation) {
-        // Do nothing for now
+        String text = String.format("Found %d issues", getValue().getReviewIssue().size());
+        presentation.setPresentableText(text);
     }
 
     private Map<String, Collection<ReviewIssue>> groupByFiles() {
-        Map<String, Collection<ReviewIssue>> result = new HashMap<String, Collection<ReviewIssue>>();
+        Map<String, Collection<ReviewIssue>> grouping = new HashMap<String, Collection<ReviewIssue>>();
         for (ReviewIssue issue : getValue().getReviewIssue()) {
-            Collection<ReviewIssue> issues = result.get(issue.getFile().getValue());
+            Collection<ReviewIssue> issues = grouping.get(issue.getFile().getValue());
             if (issues == null) {
                 issues = new LinkedList<ReviewIssue>();
-                result.put(issue.getFile().getValue(), issues);
+                grouping.put(issue.getFile().getValue(), issues);
             }
             issues.add(issue);
         }
-        return result;
+        return grouping;
+    }
+
+    private Map<String, Collection<ReviewIssue>> getGrouping() {
+        if (grouping == null) {
+            grouping = groupByFiles();
+        }
+        return grouping;
     }
 }

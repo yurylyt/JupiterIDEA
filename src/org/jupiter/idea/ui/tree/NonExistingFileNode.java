@@ -26,6 +26,7 @@ public class NonExistingFileNode extends AbstractTreeNode<String> {
 
     @Override
     protected void update(PresentationData presentation) {
-        // do nothing
+        presentation.setPresentableText(getValue());
+
     }
 }

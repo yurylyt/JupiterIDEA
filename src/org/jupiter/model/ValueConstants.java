@@ -6,6 +6,9 @@ package org.jupiter.model;
  * Time: 17:36
  */
 public class ValueConstants {
+    public static final String STATUS_RESOLVED = "item.status.label.resolved";
+    public static final String STATUS_CLOSED = "item.status.label.closed";
+
     public static final String[] SEVERITIES = {
             null,
             "item.severity.label.critical",

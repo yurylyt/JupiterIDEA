@@ -30,7 +30,7 @@ public class ReviewsPanel extends SimpleToolWindowPanel {
     private void init() {
         DefaultTreeModel model = new DefaultTreeModel(new DefaultMutableTreeNode());
         Tree tree = new Tree(model);
-        tree.setRootVisible(false);
+//        tree.setRootVisible(false);
         ReviewsTreeStructure treeStructure = new ReviewsTreeStructure(myProject, reviewProvider);
         AbstractTreeBuilder builder = new AbstractTreeBuilder(tree, model, treeStructure, null);
         UIUtil.setLineStyleAngled(tree);
