@@ -34,9 +34,20 @@ public class ReviewProviderImpl implements ReviewProvider {
     }
 
     private VirtualFile getReviewFile() {
-        VirtualFile baseDir = project.getBaseDir();
-//        return baseDir != null ? baseDir.findFileByRelativePath("review/GXT client v. 0.0.1-ander.review") : null;
-        return baseDir != null ? baseDir.findFileByRelativePath("review/test-me.review") : null;
+        VirtualFile baseDir = this.project.getBaseDir();
+        VirtualFile reviewFile = null;
+        if (baseDir != null) {
+            VirtualFile reviewDir = baseDir.findFileByRelativePath("review");
+            if (reviewDir != null) {
+                for (VirtualFile child : reviewDir.getChildren()) {
+                    if (child.getName().endsWith(".review")) {
+                        reviewFile = child;
+                        break;
+                    }
+                }
+            }
+        }
+        return reviewFile;
     }
 
     public void saveReview(Review review) {

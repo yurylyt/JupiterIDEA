@@ -10,7 +10,7 @@ public class ValueConstants {
     public static final String STATUS_CLOSED = "item.status.label.closed";
 
     public static final String[] SEVERITIES = {
-            null,
+            "item.label.unset",
             "item.severity.label.critical",
             "item.severity.label.major",
             "item.severity.label.normal",
@@ -19,7 +19,7 @@ public class ValueConstants {
     };
 
     public static final String[] TYPES = {
-            null,
+            "item.label.unset",
             "item.type.label.codingStandards",
             "item.type.label.programLogic",
             "item.type.label.optimization",
@@ -32,7 +32,7 @@ public class ValueConstants {
     };
 
     public static final String[] RESOLUTIONS = {
-            null,
+            "item.label.unset",
             "item.resolution.label.validNeedsfixing",
             "item.resolution.label.validFixlater",
             "item.resolution.label.validDuplicate",
@@ -42,7 +42,7 @@ public class ValueConstants {
     };
 
     public static final String[] STATUSES = {
-            null,
+            "item.label.unset",
             "item.status.label.open",
             "item.status.label.resolved",
             "item.status.label.closed",

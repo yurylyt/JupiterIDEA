@@ -11,7 +11,6 @@ import com.intellij.openapi.wm.ToolWindow;
 import com.intellij.openapi.wm.ToolWindowAnchor;
 import com.intellij.openapi.wm.ToolWindowFactory;
 import com.intellij.pom.Navigatable;
-import com.intellij.psi.PsiManager;
 import com.intellij.ui.content.Content;
 import com.intellij.ui.content.ContentFactory;
 import com.intellij.ui.table.JBTable;
@@ -54,6 +53,7 @@ public class CodeReviewToolWindowFactory implements ToolWindowFactory, DataProvi
     private JToolBar toolbar;
     private JButton saveButton;
     private JTextField lineText;
+    private JTextField annotationText;
     private JSplitPane splitPane;
     private OldReviewsTableModel tableModel;
     private Project myProject;
@@ -63,7 +63,7 @@ public class CodeReviewToolWindowFactory implements ToolWindowFactory, DataProvi
     private ReviewIssue currentIssue;
 
     public CodeReviewToolWindowFactory() {
-        saveButton.addActionListener(new ActionListener() {
+        this.saveButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 saveReview();
             }
@@ -72,9 +72,9 @@ public class CodeReviewToolWindowFactory implements ToolWindowFactory, DataProvi
     }
 
     public void createToolWindowContent(Project project, ToolWindow toolWindow) {
-        myProject = project;
+        this.myProject = project;
         ContentFactory contentFactory = ContentFactory.SERVICE.getInstance();
-        Content content = contentFactory.createContent(contentPanel, "Code Review", false);
+        Content content = contentFactory.createContent(this.contentPanel, "Code Review", false);
         toolWindow.getContentManager().addContent(content);
         toolWindow.setAnchor(ToolWindowAnchor.BOTTOM, null);
 
@@ -83,7 +83,6 @@ public class CodeReviewToolWindowFactory implements ToolWindowFactory, DataProvi
         tableModel.setReview(review);
         reviewsTable.setAutoCreateRowSorter(true);
         splitPane.setDividerLocation(0.8);
-        PsiManager psiManager = PsiManager.getInstance(myProject);
     }
 
     private void createUIComponents() {
@@ -102,19 +101,19 @@ public class CodeReviewToolWindowFactory implements ToolWindowFactory, DataProvi
                 return super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
             }
         };
-        severityCombo = new JComboBox(ValueConstants.SEVERITIES);
-        severityCombo.setRenderer(bundleRenderer);
+        this.severityCombo = new JComboBox(ValueConstants.SEVERITIES);
+        this.severityCombo.setRenderer(bundleRenderer);
 
-        typeCombo = new JComboBox(ValueConstants.TYPES);
-        typeCombo.setRenderer(bundleRenderer);
+        this.typeCombo = new JComboBox(ValueConstants.TYPES);
+        this.typeCombo.setRenderer(bundleRenderer);
 
-        resolutionCombo = new JComboBox(ValueConstants.RESOLUTIONS);
-        resolutionCombo.setRenderer(bundleRenderer);
+        this.resolutionCombo = new JComboBox(ValueConstants.RESOLUTIONS);
+        this.resolutionCombo.setRenderer(bundleRenderer);
 
-        statusCombo = new JComboBox(ValueConstants.STATUSES);
-        statusCombo.setRenderer(bundleRenderer);
+        this.statusCombo = new JComboBox(ValueConstants.STATUSES);
+        this.statusCombo.setRenderer(bundleRenderer);
 
-        assignedToCombo = new JComboBox();
+        this.assignedToCombo = new JComboBox();
     }
 
     private void createTable(ResourceBundle bundle) {
@@ -127,9 +126,11 @@ public class CodeReviewToolWindowFactory implements ToolWindowFactory, DataProvi
         reviewsTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent e) {
                 if (!e.getValueIsAdjusting()) {
-                    int index = reviewsTable.getSelectionModel()
+                    int index = CodeReviewToolWindowFactory.this.reviewsTable
+                            .getSelectionModel()
                             .getLeadSelectionIndex();
-                    setReviewIssue(tableModel.getValue(index));
+                    setReviewIssue(CodeReviewToolWindowFactory.this.tableModel
+                                           .getValue(index));
                 }
             }
         });
@@ -138,8 +139,9 @@ public class CodeReviewToolWindowFactory implements ToolWindowFactory, DataProvi
                 OpenSourceUtil.openSourcesFrom(CodeReviewToolWindowFactory.this, true);
             }
         };
-        reviewsTable.registerKeyboardAction(jumpToSourceListener, KeyStroke.getKeyStroke(KeyEvent.VK_F4, 0),
-                JComponent.WHEN_FOCUSED);
+        this.reviewsTable.registerKeyboardAction(jumpToSourceListener, KeyStroke
+                .getKeyStroke(KeyEvent.VK_F4, 0),
+                                                 JComponent.WHEN_FOCUSED);
     }
 
     private void setReviewIssue(ReviewIssue value) {
@@ -148,40 +150,47 @@ public class CodeReviewToolWindowFactory implements ToolWindowFactory, DataProvi
         if (value == null) {
             value = new ReviewIssue();
         }
-        severityCombo.setSelectedItem(value.getSeverity());
-        typeCombo.setSelectedItem(value.getType());
-        assignedToCombo.setSelectedItem(value.getAssignedTo());
-        fileText.setText(value.getFile().getValue());
-        lineText.setText("" + value.getFile().getLine());
-        statusCombo.setSelectedItem(value.getStatus());
-        resolutionCombo.setSelectedItem(value.getResolution());
-        summaryText.setText(value.getSummary());
-        descriptionText.setText(value.getDescription());
+        this.severityCombo.setSelectedItem(value.getSeverity());
+        this.typeCombo.setSelectedItem(value.getType());
+        this.assignedToCombo.setSelectedItem(value.getAssignedTo());
+        this.fileText.setText(value.getFile().getValue());
+        this.lineText.setText("" + value.getFile().getLine());
+        this.statusCombo.setSelectedItem(value.getStatus());
+        this.resolutionCombo.setSelectedItem(value.getResolution());
+        this.summaryText.setText(value.getSummary());
+        this.descriptionText.setText(value.getDescription());
+        this.annotationText.setText(value.getAnnotation());
     }
 
     private void saveReview() {
-        if (currentIssue != null) {
-            currentIssue.setSeverity((String) severityCombo.getSelectedItem());
-            currentIssue.setType((String) typeCombo.getSelectedItem());
-            currentIssue.getFile().setValue(fileText.getText());
-            currentIssue.getFile().setLine(Integer.parseInt(lineText.getText()));
-            currentIssue.setStatus((String) statusCombo.getSelectedItem());
-            currentIssue.setResolution((String) resolutionCombo.getSelectedItem());
-            currentIssue.setSummary(summaryText.getText());
-            currentIssue.setDescription(descriptionText.getText());
-            provider.saveReview(review);
+        if (this.currentIssue != null) {
+            this.currentIssue
+                    .setSeverity((String) this.severityCombo.getSelectedItem());
+            this.currentIssue.setType((String) this.typeCombo.getSelectedItem());
+            this.currentIssue.getFile().setValue(this.fileText.getText());
+            this.currentIssue.getFile().setLine(
+                    Integer.parseInt(this.lineText.getText()));
+            this.currentIssue
+                    .setStatus((String) this.statusCombo.getSelectedItem());
+            this.currentIssue.setResolution(
+                    (String) this.resolutionCombo.getSelectedItem());
+            this.currentIssue.setSummary(this.summaryText.getText());
+            this.currentIssue.setDescription(this.descriptionText.getText());
+            this.currentIssue.setAnnotation(this.annotationText.getText());
+            this.provider.saveReview(this.review);
         }
     }
 
     public Object getData(@NonNls String dataId) {
-        if (PlatformDataKeys.NAVIGATABLE_ARRAY.is(dataId) && currentIssue != null) {
-            File issueFile = currentIssue.getFile();
-            VirtualFile baseDir = myProject.getBaseDir();
+        if (PlatformDataKeys.NAVIGATABLE_ARRAY.is(dataId) && this.currentIssue
+                != null) {
+            File issueFile = this.currentIssue.getFile();
+            VirtualFile baseDir = this.myProject.getBaseDir();
             if (baseDir != null) {
                 VirtualFile file = baseDir.findFileByRelativePath(issueFile.getValue());
                 if (file != null) {
                     return new Navigatable[] {
-                            new OpenFileDescriptor(myProject, file, issueFile.getLine() - 1, 16)
+                            new OpenFileDescriptor(this.myProject, file, issueFile.getLine() - 1, 16)
                     };
 
                 }
