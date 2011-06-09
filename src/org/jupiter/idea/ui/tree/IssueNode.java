@@ -11,10 +11,7 @@ import org.jupiter.model.ValueConstants;
 import org.jupiter.model.review.ReviewIssue;
 
 import javax.swing.*;
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.Map;
-import java.util.WeakHashMap;
+import java.util.*;
 
 /**
  * Author: Iurii Lytvynenko
@@ -46,6 +43,10 @@ public class IssueNode extends AbstractTreeNode<ReviewIssue> {
         }
         String iconPath = getStatusWord(issue.getStatus());
         presentation.addText(issue.getSummary(), attrs);
+
+        String lineText = String.format(" (line %d)", issue.getFile().getLine());
+        attrs = SimpleTextAttributes.merge(SimpleTextAttributes.GRAY_ITALIC_ATTRIBUTES, attrs);
+        presentation.addText(lineText, attrs);
         presentation.setIcons(getIcon(iconPath));
     }
 

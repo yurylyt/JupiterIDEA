@@ -3,6 +3,7 @@ package org.jupiter.idea.ui;
 import com.intellij.ide.util.treeView.AbstractTreeBuilder;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.SimpleToolWindowPanel;
+import com.intellij.ui.ScrollPaneFactory;
 import com.intellij.ui.treeStructure.Tree;
 import com.intellij.util.ui.UIUtil;
 import org.jupiter.idea.ui.tree.ReviewsTreeStructure;
@@ -34,6 +35,6 @@ public class ReviewsPanel extends SimpleToolWindowPanel {
         ReviewsTreeStructure treeStructure = new ReviewsTreeStructure(myProject, reviewProvider);
         AbstractTreeBuilder builder = new AbstractTreeBuilder(tree, model, treeStructure, null);
         UIUtil.setLineStyleAngled(tree);
-        setContent(tree);
+        setContent(ScrollPaneFactory.createScrollPane(tree));
     }
 }
