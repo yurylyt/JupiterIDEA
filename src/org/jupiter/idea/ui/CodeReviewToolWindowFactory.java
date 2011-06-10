@@ -34,7 +34,7 @@ import java.awt.event.KeyEvent;
 import java.util.ResourceBundle;
 
 /**
- * Author: Iurii Lytvynenko
+ * Author: Yuri Lytvynenko
  * Date: 28.05.11
  * Time: 18:14
  */

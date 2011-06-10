@@ -7,7 +7,7 @@ import org.jetbrains.annotations.PropertyKey;
 import java.util.ResourceBundle;
 
 /**
- * Author: Iurii Lytvynenko
+ * Author: Yuri Lytvynenko
  * Date: 05.06.11
  * Time: 16:47
  */

@@ -6,7 +6,7 @@ import com.intellij.openapi.wm.ToolWindow;
 import com.intellij.openapi.wm.ToolWindowFactory;
 
 /**
- * Author: Iurii Lytvynenko
+ * Author: Yuri Lytvynenko
  * Date: 05.06.11
  * Time: 16:56
  */

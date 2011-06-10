@@ -16,7 +16,7 @@ import java.util.Collection;
 import java.util.LinkedList;
 
 /**
- * Author: Iurii Lytvynenko
+ * Author: Yuri Lytvynenko
  * Date: 06.06.11
  * Time: 23:43
  */

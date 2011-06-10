@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 /**
- * Author: Iurii Lytvynenko
+ * Author: Yuri Lytvynenko
  * Date: 29.05.11
  * Time: 12:52
  */

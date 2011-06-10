@@ -15,7 +15,7 @@ import javax.swing.*;
 import java.util.*;
 
 /**
- * Author: Iurii Lytvynenko
+ * Author: Yuri Lytvynenko
  * Date: 06.06.11
  * Time: 23:33
  */

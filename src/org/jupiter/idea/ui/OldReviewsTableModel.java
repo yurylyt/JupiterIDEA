@@ -6,7 +6,7 @@ import org.jupiter.model.review.ReviewIssue;
 import javax.swing.table.AbstractTableModel;
 
 /**
- * Author: Iurii Lytvynenko
+ * Author: Yuri Lytvynenko
  * Date: 29.05.11
  * Time: 12:41
  */

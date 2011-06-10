@@ -11,7 +11,7 @@ import java.awt.*;
 import java.util.ResourceBundle;
 
 /**
- * Author: Iurii Lytvynenko
+ * Author: Yuri Lytvynenko
  * Date: 29.05.11
  * Time: 16:25
  */

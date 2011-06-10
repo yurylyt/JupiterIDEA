@@ -13,7 +13,7 @@ import javax.swing.event.TreeSelectionListener;
 import java.awt.*;
 
 /**
- * Author: Iurii Lytvynenko
+ * Author: Yuri Lytvynenko
  * Date: 10.06.11
  * Time: 8:44
  */

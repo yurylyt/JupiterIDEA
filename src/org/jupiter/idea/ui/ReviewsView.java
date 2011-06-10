@@ -9,7 +9,7 @@ import com.intellij.ui.content.ContentManager;
 import org.jupiter.service.ReviewProvider;
 
 /**
- * Author: Iurii Lytvynenko
+ * Author: Yuri Lytvynenko
  * Date: 05.06.11
  * Time: 16:39
  */

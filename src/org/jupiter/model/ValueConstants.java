@@ -1,7 +1,7 @@
 package org.jupiter.model;
 
 /**
- * Author: Iurii Lytvynenko
+ * Author: Yuri Lytvynenko
  * Date: 29.05.11
  * Time: 17:36
  */
