@@ -42,11 +42,11 @@ public class IssueNode extends AbstractTreeNode<ReviewIssue> {
             attrs = new SimpleTextAttributes(SimpleTextAttributes.STYLE_STRIKEOUT, UIUtil.getInactiveTextColor());
         }
         String iconPath = getStatusWord(issue.getStatus());
-        presentation.addText(issue.getSummary(), attrs);
 
-        String lineText = String.format(" (line %d)", issue.getFile().getLine());
-        attrs = SimpleTextAttributes.merge(SimpleTextAttributes.GRAY_ITALIC_ATTRIBUTES, attrs);
-        presentation.addText(lineText, attrs);
+        String lineText = String.format("(line %d) ", issue.getFile().getLine());
+        SimpleTextAttributes lineAttrs = SimpleTextAttributes.merge(SimpleTextAttributes.GRAY_ITALIC_ATTRIBUTES, attrs);
+        presentation.addText(lineText, lineAttrs);
+        presentation.addText(issue.getSummary(), attrs);
         presentation.setIcons(getIcon(iconPath));
     }
 

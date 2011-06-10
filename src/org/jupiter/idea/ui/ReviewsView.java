@@ -6,7 +6,6 @@ import com.intellij.openapi.wm.ToolWindow;
 import com.intellij.ui.content.Content;
 import com.intellij.ui.content.ContentFactory;
 import com.intellij.ui.content.ContentManager;
-import org.jupiter.JupiterBundle;
 import org.jupiter.service.ReviewProvider;
 
 /**
@@ -25,12 +24,12 @@ public class ReviewsView implements Disposable {
 
     public void initToolWindow(ToolWindow window) {
         ContentManager contentManager = window.getContentManager();
-        Content reviewsContent= ContentFactory.SERVICE.getInstance()
-                .createContent(null, JupiterBundle.message("tool.window.title"), false);
-        ReviewsPanel panel = new ReviewsPanel(myProject, reviewProvider);
-        reviewsContent.setComponent(panel);
-        reviewsContent.setCloseable(false);
-        contentManager.addContent(reviewsContent);
+        ReviewsUI reviewsUI = new ReviewsUI(myProject, reviewProvider);
+
+        Content content= ContentFactory.SERVICE.getInstance()
+                .createContent(reviewsUI.create(), "", false);
+        content.setCloseable(false);
+        contentManager.addContent(content);
     }
 
     public void dispose() {
