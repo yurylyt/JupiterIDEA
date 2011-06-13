@@ -10,7 +10,7 @@ import com.intellij.psi.PsiFile;
 import com.intellij.ui.SimpleTextAttributes;
 import com.intellij.usageView.UsageTreeColors;
 import com.intellij.usageView.UsageTreeColorsScheme;
-import org.jupiter.model.review.ReviewIssue;
+import org.jupiter.model.ReviewIssueItem;
 
 import java.util.Collection;
 import java.util.LinkedList;
@@ -20,10 +20,10 @@ import java.util.LinkedList;
  * Date: 06.06.11
  * Time: 23:43
  */
-public class ReviewFileNode extends PsiFileNode {
-    private Collection<ReviewIssue> myChildIssues;
+public class ReviewFileNode extends PsiFileNode implements NavigatableReviewItem {
+    private Collection<ReviewIssueItem> myChildIssues;
 
-    public ReviewFileNode(Project project, PsiFile value, Collection<ReviewIssue> childIssues) {
+    public ReviewFileNode(Project project, PsiFile value, Collection<ReviewIssueItem> childIssues) {
         super(project, value, ViewSettings.DEFAULT);
         this.myChildIssues = childIssues;
     }
@@ -31,7 +31,7 @@ public class ReviewFileNode extends PsiFileNode {
     @Override
     public Collection<AbstractTreeNode> getChildrenImpl() {
         Collection<AbstractTreeNode> children = new LinkedList<AbstractTreeNode>();
-        for (ReviewIssue issue : myChildIssues) {
+        for (ReviewIssueItem issue : myChildIssues) {
             children.add(new IssueNode(myProject, issue));
         }
         return children;
@@ -48,5 +48,9 @@ public class ReviewFileNode extends PsiFileNode {
         data.addText(text, SimpleTextAttributes.REGULAR_ATTRIBUTES);
         data.addText(usage, attrs);
 
+    }
+
+    public int getOffset() {
+        return 0;
     }
 }

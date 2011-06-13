@@ -8,6 +8,8 @@ package org.jupiter.model;
 public class ValueConstants {
     public static final String STATUS_RESOLVED = "item.status.label.resolved";
     public static final String STATUS_CLOSED = "item.status.label.closed";
+    public static final String STATUS_REOPENED = "item.status.label.reopened";
+    public static final String STATUS_OPEN = "item.status.label.open";
 
     public static final String[] SEVERITIES = {
             "item.label.unset",

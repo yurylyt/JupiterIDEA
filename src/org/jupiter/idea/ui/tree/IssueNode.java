@@ -4,25 +4,30 @@ import com.intellij.ide.projectView.PresentationData;
 import com.intellij.ide.util.treeView.AbstractTreeNode;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.IconLoader;
+import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.ui.SimpleTextAttributes;
 import com.intellij.util.ui.UIUtil;
 import org.jetbrains.annotations.NotNull;
+import org.jupiter.model.ReviewIssueItem;
 import org.jupiter.model.ValueConstants;
 import org.jupiter.model.review.ReviewIssue;
 
 import javax.swing.*;
-import java.util.*;
+import java.util.Collection;
+import java.util.LinkedList;
+import java.util.Map;
+import java.util.WeakHashMap;
 
 /**
  * Author: Yuri Lytvynenko
  * Date: 07.06.11
  * Time: 7:50
  */
-public class IssueNode extends AbstractTreeNode<ReviewIssue> {
+public class IssueNode extends AbstractTreeNode<ReviewIssueItem> implements NavigatableReviewItem {
 
-    private static Map<String,Icon> icons;
+    private static Map<String, Icon> icons;
 
-    protected IssueNode(Project project, ReviewIssue value) {
+    protected IssueNode(Project project, ReviewIssueItem value) {
         super(project, value);
     }
 
@@ -34,19 +39,22 @@ public class IssueNode extends AbstractTreeNode<ReviewIssue> {
 
     @Override
     protected void update(PresentationData presentation) {
-        ReviewIssue issue = getValue();
+        ReviewIssue issue = getValue().getReviewIssue();
         SimpleTextAttributes attrs = SimpleTextAttributes.REGULAR_ATTRIBUTES;
-        if (issue.getStatus().equals(ValueConstants.STATUS_RESOLVED)) {
+        String status = issue.getStatus();
+        if (status.equals(ValueConstants.STATUS_RESOLVED)) {
             attrs = new SimpleTextAttributes(SimpleTextAttributes.STYLE_STRIKEOUT, null);
-        } else if (issue.getStatus().equals(ValueConstants.STATUS_CLOSED)) {
-            attrs = new SimpleTextAttributes(SimpleTextAttributes.STYLE_STRIKEOUT, UIUtil.getInactiveTextColor());
+        } else if (status.equals(ValueConstants.STATUS_CLOSED)) {
+            attrs = new SimpleTextAttributes(SimpleTextAttributes.STYLE_STRIKEOUT | SimpleTextAttributes.STYLE_BOLD, UIUtil.getInactiveTextColor());
+        } else if (status.equals(ValueConstants.STATUS_REOPENED)) {
+            attrs = new SimpleTextAttributes(SimpleTextAttributes.STYLE_WAVED, null);
         }
-        String iconPath = getStatusWord(issue.getStatus());
+        String iconPath = getLastWord(issue.getSeverity());
 
-        String lineText = String.format("(line %d) ", issue.getFile().getLine());
-        SimpleTextAttributes lineAttrs = SimpleTextAttributes.merge(SimpleTextAttributes.GRAY_ITALIC_ATTRIBUTES, attrs);
-        presentation.addText(lineText, lineAttrs);
+        SimpleTextAttributes lineAttrs = SimpleTextAttributes.GRAY_ATTRIBUTES;
         presentation.addText(issue.getSummary(), attrs);
+        String info = String.format(" [%s, %s]", getLastWord(status), getLastWord(issue.getSeverity()));
+        presentation.addText(info, lineAttrs);
         presentation.setIcons(getIcon(iconPath));
     }
 
@@ -59,14 +67,23 @@ public class IssueNode extends AbstractTreeNode<ReviewIssue> {
 
     private static synchronized void initIconsMap() {
         icons = new WeakHashMap<String, Icon>();
-        icons.put("open", IconLoader.findIcon("/icons/status/open.png"));
-        icons.put("resolved", IconLoader.findIcon("/icons/status/resolved.png"));
-        icons.put("reopened", IconLoader.findIcon("/icons/status/reopened.png"));
-        icons.put("closed", IconLoader.findIcon("/icons/status/closed.png"));
+        icons.put("trivial", IconLoader.findIcon("/icons/severity/trivial.png"));
+        icons.put("minor", IconLoader.findIcon("/icons/severity/minor.png"));
+        icons.put("normal", IconLoader.findIcon("/icons/severity/normal.png"));
+        icons.put("major", IconLoader.findIcon("/icons/severity/major.png"));
+        icons.put("critical", IconLoader.findIcon("/icons/severity/critical.png"));
     }
 
-    private String getStatusWord(String statusStr) {
+    private String getLastWord(String statusStr) {
         int index = statusStr.lastIndexOf(".");
         return index > 0 ? statusStr.substring(index + 1) : "";
+    }
+
+    public VirtualFile getVirtualFile() {
+        return getValue().getVirtualFile();
+    }
+
+    public int getOffset() {
+        return getValue().getRangeMarker().getStartOffset();
     }
 }

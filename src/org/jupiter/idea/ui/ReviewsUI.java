@@ -1,11 +1,14 @@
 package org.jupiter.idea.ui;
 
+import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.MultiLineLabelUI;
 import com.intellij.openapi.ui.Splitter;
+import com.intellij.ui.ScrollPaneFactory;
 import com.intellij.util.ui.UIUtil;
-import org.jupiter.model.review.ReviewIssue;
-import org.jupiter.service.ReviewProvider;
+import org.jupiter.model.ReviewIssueItem;
+import org.jupiter.model.review.Review;
+import org.jupiter.service.ReviewManager;
 
 import javax.swing.*;
 import javax.swing.event.TreeSelectionEvent;
@@ -19,20 +22,23 @@ import java.awt.*;
  */
 public class ReviewsUI {
     private Project myProject;
-    private ReviewProvider reviewProvider;
+    private ReviewManager reviewManager;
     private ReviewsPanel reviewsPanel;
     private IssuePanel issuePanel;
     private JPanel detailsPanel;
     private CardLayout detailsLayout;
+    private Review review;
 
-    public ReviewsUI(Project myProject, ReviewProvider reviewProvider) {
+    public ReviewsUI(Project myProject, ReviewManager reviewManager) {
         this.myProject = myProject;
-        this.reviewProvider = reviewProvider;
+        this.reviewManager = reviewManager;
     }
 
     public JComponent create() {
-        Splitter splitter = new Splitter(false, 0.6f);
-        reviewsPanel = new ReviewsPanel(myProject, reviewProvider);
+        Splitter splitter = new Splitter(false, 0.55f);
+        this.review = reviewManager.getReview("");
+        Review review = this.review;
+        reviewsPanel = new ReviewsPanel(myProject, review, reviewManager);
         splitter.setFirstComponent(reviewsPanel);
         JComponent details = createDetails();
         splitter.setSecondComponent(details);
@@ -41,23 +47,35 @@ public class ReviewsUI {
                 updateSelection();
             }
         });
+//        this.issuePanel.addIssueUpdatedListener(new IssueUpdatedListener() {
+//            public void issueUpdated(ReviewIssue issue) {
+//                scheduleUpdate(issue);
+//            }
+//        });
         return splitter;
     }
 
+
+
     private void updateSelection() {
-        ReviewIssue issue = reviewsPanel.getSelectedIssue();
-        detailsLayout.show(detailsPanel, issue != null ? "details" : "empty");
+        ReviewIssueItem issueItem = reviewsPanel.getSelectedIssue();
+        String paneId = "empty";
+        if (issueItem != null) {
+            issuePanel.setIssue(issueItem.getReviewIssue());
+            paneId = "details";
+        }
+        detailsLayout.show(detailsPanel, paneId);
     }
 
-    private JPanel createDetails() {
+    private JComponent createDetails() {
         detailsPanel = new JPanel();
         detailsLayout = new CardLayout();
         detailsPanel.setLayout(detailsLayout);
         detailsPanel.add("empty", createEmptyPanel());
-        issuePanel = new IssuePanel();
-        detailsPanel.add("details", issuePanel);
-        detailsLayout.show(detailsPanel, "empty");
-        return detailsPanel;
+        issuePanel = ServiceManager.getService(myProject, IssuePanel.class);
+        detailsPanel.add("details", issuePanel.getComponent());
+        detailsLayout.show(detailsPanel, "details");
+        return ScrollPaneFactory.createScrollPane(detailsPanel);
     }
 
     private JPanel createEmptyPanel() {

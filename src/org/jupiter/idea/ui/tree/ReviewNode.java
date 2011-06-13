@@ -8,8 +8,10 @@ import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.PsiManager;
 import org.jetbrains.annotations.NotNull;
+import org.jupiter.model.ReviewIssueItem;
 import org.jupiter.model.review.Review;
 import org.jupiter.model.review.ReviewIssue;
+import org.jupiter.service.ReviewManager;
 
 import javax.swing.*;
 import java.util.*;
@@ -22,32 +24,30 @@ import java.util.*;
 public class ReviewNode extends AbstractTreeNode<Review> {
 
     private static final Icon JUPITER_ICON = IconLoader.findIcon("/icons/jupiter.gif");
-    private Map<String,Collection<ReviewIssue>> grouping;
+    private Map<String, Collection<ReviewIssueItem>> grouping;
+    private ReviewManager reviewManager;
 
-    protected ReviewNode(Project project, Review value) {
+    protected ReviewNode(Project project, Review value, ReviewManager reviewManager) {
         super(project, value);
+        this.reviewManager = reviewManager;
     }
 
     @NotNull
     @Override
     public Collection<? extends AbstractTreeNode> getChildren() {
-        Map<String, Collection<ReviewIssue>> map = getGrouping();
-        VirtualFile baseDir = myProject.getBaseDir();
+        Map<String, Collection<ReviewIssueItem>> map = getGrouping();
         PsiManager psiManager = PsiManager.getInstance(myProject);
 
         Collection<AbstractTreeNode> children = new LinkedList<AbstractTreeNode>();
-        if (baseDir != null) {
-            for (String file : new TreeSet<String>(map.keySet())) {
-                VirtualFile issueFile = baseDir.findFileByRelativePath(file);
-                PsiFile psifile = issueFile != null ? psiManager.findFile(issueFile) : null;
+        for (String file : new TreeSet<String>(map.keySet())) {
+            VirtualFile issueFile = getVirtualFile(file);
+            PsiFile psifile = issueFile != null ? psiManager.findFile(issueFile) : null;
 
-                if (psifile == null) {
-                    children.add(new NonExistingFileNode(myProject, "N/A: " + file));
-                } else {
-                    children.add(new ReviewFileNode(myProject, psifile, map.get(file)));
-                }
+            if (psifile == null) {
+                children.add(new NonExistingFileNode(myProject, file));
+            } else {
+                children.add(new ReviewFileNode(myProject, psifile, map.get(file)));
             }
-
         }
         return children;
     }
@@ -59,20 +59,28 @@ public class ReviewNode extends AbstractTreeNode<Review> {
         presentation.setIcons(JUPITER_ICON);
     }
 
-    private Map<String, Collection<ReviewIssue>> groupByFiles() {
-        Map<String, Collection<ReviewIssue>> grouping = new HashMap<String, Collection<ReviewIssue>>();
+    private Map<String, Collection<ReviewIssueItem>> groupByFiles() {
+        Map<String, Collection<ReviewIssueItem>> grouping = new HashMap<String, Collection<ReviewIssueItem>>();
         for (ReviewIssue issue : getValue().getReviewIssue()) {
-            Collection<ReviewIssue> issues = grouping.get(issue.getFile().getValue());
+            String fileName = issue.getFile().getValue();
+            Collection<ReviewIssueItem> issues = grouping.get(fileName);
             if (issues == null) {
-                issues = new LinkedList<ReviewIssue>();
-                grouping.put(issue.getFile().getValue(), issues);
+                issues = new LinkedList<ReviewIssueItem>();
+                grouping.put(fileName, issues);
             }
-            issues.add(issue);
+            ReviewIssueItem item = new ReviewIssueItem(issue, myProject, getVirtualFile(fileName), reviewManager);
+
+            issues.add(item);
         }
         return grouping;
     }
 
-    private Map<String, Collection<ReviewIssue>> getGrouping() {
+    private VirtualFile getVirtualFile(String fileName) {
+        VirtualFile baseDir = myProject.getBaseDir();
+        return baseDir != null ? baseDir.findFileByRelativePath(fileName) : null;
+    }
+
+    private Map<String, Collection<ReviewIssueItem>> getGrouping() {
         if (grouping == null) {
             grouping = groupByFiles();
         }

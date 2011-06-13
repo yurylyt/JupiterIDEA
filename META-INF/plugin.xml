@@ -11,7 +11,12 @@
     </application-components>
 
     <project-components>
-
+        <component >
+            <implementation-class>org.jupiter.idea.ui.IssuePanel</implementation-class>
+        </component>
+        <component>
+            <implementation-class>org.jupiter.idea.ui.ReviewsView</implementation-class>
+        </component>
     </project-components>
 
     <actions>
@@ -19,9 +24,10 @@
     </actions>
 
     <extensions defaultExtensionNs="com.intellij">
-        <projectService serviceImplementation="org.jupiter.idea.ui.ReviewsView"/>
-        <projectService serviceInterface="org.jupiter.service.ReviewProvider"
-                serviceImplementation="org.jupiter.service.ReviewProviderImpl"/>
+
+        <projectService serviceInterface="org.jupiter.service.ReviewManager"
+                serviceImplementation="org.jupiter.service.ReviewManagerImpl"/>
+
         <toolWindow id="Jupiter Review" secondary="true" anchor="bottom"
                     factoryClass="org.jupiter.idea.ui.ReviewsToolWindowFactory"
                     icon="/icons/jupiter.gif">

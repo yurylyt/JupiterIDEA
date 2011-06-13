@@ -20,8 +20,8 @@ import org.jupiter.model.ValueConstants;
 import org.jupiter.model.review.File;
 import org.jupiter.model.review.Review;
 import org.jupiter.model.review.ReviewIssue;
-import org.jupiter.service.ReviewProvider;
-import org.jupiter.service.ReviewProviderImpl;
+import org.jupiter.service.ReviewManager;
+import org.jupiter.service.ReviewManagerImpl;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -57,7 +57,7 @@ public class CodeReviewToolWindowFactory implements ToolWindowFactory, DataProvi
     private JSplitPane splitPane;
     private OldReviewsTableModel tableModel;
     private Project myProject;
-    private ReviewProvider provider;
+    private ReviewManager manager;
 
     private Review review;
     private ReviewIssue currentIssue;
@@ -78,8 +78,8 @@ public class CodeReviewToolWindowFactory implements ToolWindowFactory, DataProvi
         toolWindow.getContentManager().addContent(content);
         toolWindow.setAnchor(ToolWindowAnchor.BOTTOM, null);
 
-        provider = new ReviewProviderImpl(project);
-        this.review = provider.getReview("");
+        manager = new ReviewManagerImpl(project);
+        this.review = manager.getReview("");
         tableModel.setReview(review);
         reviewsTable.setAutoCreateRowSorter(true);
         splitPane.setDividerLocation(0.8);
@@ -177,7 +177,7 @@ public class CodeReviewToolWindowFactory implements ToolWindowFactory, DataProvi
             this.currentIssue.setSummary(this.summaryText.getText());
             this.currentIssue.setDescription(this.descriptionText.getText());
             this.currentIssue.setAnnotation(this.annotationText.getText());
-            this.provider.saveReview(this.review);
+            this.manager.saveReview(this.review);
         }
     }
 

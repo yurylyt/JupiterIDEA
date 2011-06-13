@@ -3,7 +3,8 @@ package org.jupiter.idea.ui.tree;
 import com.intellij.ide.projectView.TreeStructureProvider;
 import com.intellij.ide.util.treeView.AbstractTreeStructureBase;
 import com.intellij.openapi.project.Project;
-import org.jupiter.service.ReviewProvider;
+import org.jupiter.model.review.Review;
+import org.jupiter.service.ReviewManager;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -15,19 +16,21 @@ import java.util.List;
  */
 public class ReviewsTreeStructure extends AbstractTreeStructureBase {
     private Project project;
-    private ReviewProvider provider;
+    private Review review;
+    private ReviewManager reviewManager;
     private ReviewNode reviewNode;
 
-    public ReviewsTreeStructure(Project project, ReviewProvider provider) {
+    public ReviewsTreeStructure(Project project, Review review, ReviewManager reviewManager) {
         super(project);
         this.project = project;
-        this.provider = provider;
+        this.review = review;
+        this.reviewManager = reviewManager;
     }
 
     @Override
     public Object getRootElement() {
         if (reviewNode == null) {
-            reviewNode = new ReviewNode(project, provider.getReview(""));
+            reviewNode = new ReviewNode(project, this.review, reviewManager);
         }
         return reviewNode;
     }

@@ -3,6 +3,7 @@ package org.jupiter.idea.ui.tree;
 import com.intellij.ide.projectView.PresentationData;
 import com.intellij.ide.util.treeView.AbstractTreeNode;
 import com.intellij.openapi.project.Project;
+import com.intellij.ui.SimpleTextAttributes;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Collection;
@@ -26,7 +27,7 @@ public class NonExistingFileNode extends AbstractTreeNode<String> {
 
     @Override
     protected void update(PresentationData presentation) {
-        presentation.setPresentableText(getValue());
+        presentation.addText("File not found: " + getValue(), SimpleTextAttributes.ERROR_ATTRIBUTES);
 
     }
 }

@@ -6,7 +6,7 @@ import com.intellij.openapi.wm.ToolWindow;
 import com.intellij.ui.content.Content;
 import com.intellij.ui.content.ContentFactory;
 import com.intellij.ui.content.ContentManager;
-import org.jupiter.service.ReviewProvider;
+import org.jupiter.service.ReviewManager;
 
 /**
  * Author: Yuri Lytvynenko
@@ -15,16 +15,16 @@ import org.jupiter.service.ReviewProvider;
  */
 public class ReviewsView implements Disposable {
     private Project myProject;
-    private ReviewProvider reviewProvider;
+    private ReviewManager reviewManager;
 
-    public ReviewsView(Project project, ReviewProvider reviewProvider) {
+    public ReviewsView(Project project, ReviewManager reviewManager) {
         this.myProject = project;
-        this.reviewProvider = reviewProvider;
+        this.reviewManager = reviewManager;
     }
 
     public void initToolWindow(ToolWindow window) {
         ContentManager contentManager = window.getContentManager();
-        ReviewsUI reviewsUI = new ReviewsUI(myProject, reviewProvider);
+        ReviewsUI reviewsUI = new ReviewsUI(myProject, reviewManager);
 
         Content content= ContentFactory.SERVICE.getInstance()
                 .createContent(reviewsUI.create(), "", false);
