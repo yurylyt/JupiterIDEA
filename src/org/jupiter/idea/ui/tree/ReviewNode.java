@@ -3,17 +3,16 @@ package org.jupiter.idea.ui.tree;
 import com.intellij.ide.projectView.PresentationData;
 import com.intellij.ide.util.treeView.AbstractTreeNode;
 import com.intellij.openapi.project.Project;
-import com.intellij.openapi.util.IconLoader;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.PsiManager;
 import org.jetbrains.annotations.NotNull;
+import org.jupiter.idea.ui.JupiterIcons;
 import org.jupiter.model.ReviewIssueItem;
 import org.jupiter.model.review.Review;
 import org.jupiter.model.review.ReviewIssue;
 import org.jupiter.service.ReviewManager;
 
-import javax.swing.*;
 import java.util.*;
 
 /**
@@ -23,7 +22,6 @@ import java.util.*;
  */
 public class ReviewNode extends AbstractTreeNode<Review> {
 
-    private static final Icon JUPITER_ICON = IconLoader.findIcon("/icons/jupiter.gif");
     private Map<String, Collection<ReviewIssueItem>> grouping;
     private ReviewManager reviewManager;
 
@@ -56,7 +54,7 @@ public class ReviewNode extends AbstractTreeNode<Review> {
     protected void update(PresentationData presentation) {
         String text = String.format("Found %d issues", getValue().getReviewIssue().size());
         presentation.setPresentableText(text);
-        presentation.setIcons(JUPITER_ICON);
+        presentation.setIcons(JupiterIcons.JUPITER_ICON);
     }
 
     private Map<String, Collection<ReviewIssueItem>> groupByFiles() {

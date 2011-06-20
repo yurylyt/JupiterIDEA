@@ -5,7 +5,8 @@ package org.jupiter.model;
  * Date: 29.05.11
  * Time: 17:36
  */
-public class ValueConstants {
+public class JupiterConstants {
+    public static final String JUPITER_CONFIG_FILE_NAME = ".jupiter";
     public static final String STATUS_RESOLVED = "item.status.label.resolved";
     public static final String STATUS_CLOSED = "item.status.label.closed";
     public static final String STATUS_REOPENED = "item.status.label.reopened";

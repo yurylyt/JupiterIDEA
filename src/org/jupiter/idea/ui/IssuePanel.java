@@ -1,6 +1,6 @@
 package org.jupiter.idea.ui;
 
-import org.jupiter.model.ValueConstants;
+import org.jupiter.model.JupiterConstants;
 import org.jupiter.model.review.ReviewIssue;
 import org.jupiter.service.ReviewManager;
 
@@ -93,16 +93,16 @@ public class IssuePanel implements IssueUpdatedListener {
                 return super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
             }
         };
-        this.severityCombo = new JComboBox(ValueConstants.SEVERITIES);
+        this.severityCombo = new JComboBox(JupiterConstants.SEVERITIES);
         this.severityCombo.setRenderer(bundleRenderer);
 
-        this.typeCombo = new JComboBox(ValueConstants.TYPES);
+        this.typeCombo = new JComboBox(JupiterConstants.TYPES);
         this.typeCombo.setRenderer(bundleRenderer);
 
-        this.resolutionCombo = new JComboBox(ValueConstants.RESOLUTIONS);
+        this.resolutionCombo = new JComboBox(JupiterConstants.RESOLUTIONS);
         this.resolutionCombo.setRenderer(bundleRenderer);
 
-        this.statusCombo = new JComboBox(ValueConstants.STATUSES);
+        this.statusCombo = new JComboBox(JupiterConstants.STATUSES);
         this.statusCombo.setRenderer(bundleRenderer);
     }
 

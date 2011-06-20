@@ -3,13 +3,13 @@ package org.jupiter.idea.ui.tree;
 import com.intellij.ide.projectView.PresentationData;
 import com.intellij.ide.util.treeView.AbstractTreeNode;
 import com.intellij.openapi.project.Project;
-import com.intellij.openapi.util.IconLoader;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.ui.SimpleTextAttributes;
 import com.intellij.util.ui.UIUtil;
 import org.jetbrains.annotations.NotNull;
+import org.jupiter.idea.ui.JupiterIcons;
+import org.jupiter.model.JupiterConstants;
 import org.jupiter.model.ReviewIssueItem;
-import org.jupiter.model.ValueConstants;
 import org.jupiter.model.review.ReviewIssue;
 
 import javax.swing.*;
@@ -42,11 +42,11 @@ public class IssueNode extends AbstractTreeNode<ReviewIssueItem> implements Navi
         ReviewIssue issue = getValue().getReviewIssue();
         SimpleTextAttributes attrs = SimpleTextAttributes.REGULAR_ATTRIBUTES;
         String status = issue.getStatus();
-        if (status.equals(ValueConstants.STATUS_RESOLVED)) {
+        if (status.equals(JupiterConstants.STATUS_RESOLVED)) {
             attrs = new SimpleTextAttributes(SimpleTextAttributes.STYLE_STRIKEOUT, null);
-        } else if (status.equals(ValueConstants.STATUS_CLOSED)) {
+        } else if (status.equals(JupiterConstants.STATUS_CLOSED)) {
             attrs = new SimpleTextAttributes(SimpleTextAttributes.STYLE_STRIKEOUT | SimpleTextAttributes.STYLE_BOLD, UIUtil.getInactiveTextColor());
-        } else if (status.equals(ValueConstants.STATUS_REOPENED)) {
+        } else if (status.equals(JupiterConstants.STATUS_REOPENED)) {
             attrs = new SimpleTextAttributes(SimpleTextAttributes.STYLE_WAVED, null);
         }
         String iconPath = getLastWord(issue.getSeverity());
@@ -67,11 +67,11 @@ public class IssueNode extends AbstractTreeNode<ReviewIssueItem> implements Navi
 
     private static synchronized void initIconsMap() {
         icons = new WeakHashMap<String, Icon>();
-        icons.put("trivial", IconLoader.findIcon("/icons/severity/trivial.png"));
-        icons.put("minor", IconLoader.findIcon("/icons/severity/minor.png"));
-        icons.put("normal", IconLoader.findIcon("/icons/severity/normal.png"));
-        icons.put("major", IconLoader.findIcon("/icons/severity/major.png"));
-        icons.put("critical", IconLoader.findIcon("/icons/severity/critical.png"));
+        icons.put("trivial", JupiterIcons.SEVERITY_TRIVIAL);
+        icons.put("minor", JupiterIcons.SEVERITY_MINOR);
+        icons.put("normal", JupiterIcons.SEVERITY_NORMAL);
+        icons.put("major", JupiterIcons.SEVERITY_MAJOR);
+        icons.put("critical", JupiterIcons.SEVERITY_CRITICAL);
     }
 
     private String getLastWord(String statusStr) {

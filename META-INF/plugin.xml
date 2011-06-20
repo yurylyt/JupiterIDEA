@@ -24,7 +24,7 @@
     </actions>
 
     <extensions defaultExtensionNs="com.intellij">
-
+        <facetType implementation="org.jupiter.idea.ui.facet.JupiterFacetType" />
         <projectService serviceInterface="org.jupiter.service.ReviewManager"
                 serviceImplementation="org.jupiter.service.ReviewManagerImpl"/>
 
@@ -33,5 +33,6 @@
                     icon="/icons/jupiter.gif">
 
         </toolWindow>
+        <fileTypeFactory implementation="org.jupiter.idea.ui.file.JupiterFileTypeFactory" />
     </extensions>
 </idea-plugin>

@@ -11,10 +11,10 @@ import com.intellij.openapi.editor.markup.RangeHighlighter;
 import com.intellij.openapi.fileEditor.FileDocumentManager;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.Comparing;
-import com.intellij.openapi.util.IconLoader;
 import com.intellij.openapi.vfs.VirtualFile;
 import org.jetbrains.annotations.NotNull;
 import org.jupiter.idea.ui.IssueUpdatedListener;
+import org.jupiter.idea.ui.JupiterIcons;
 import org.jupiter.model.review.ReviewIssue;
 import org.jupiter.service.ReviewManager;
 
@@ -26,7 +26,6 @@ import javax.swing.*;
  * Time: 23:54
  */
 public class ReviewIssueItem implements IssueUpdatedListener {
-    private static final Icon JUPITER_ICON = IconLoader.findIcon("/icons/jupiter.gif");
     private ReviewIssue reviewIssue;
     private VirtualFile myVirtualFile;
     private Project myProject;
@@ -133,7 +132,7 @@ public class ReviewIssueItem implements IssueUpdatedListener {
         @NotNull
         @Override
         public Icon getIcon() {
-            return JUPITER_ICON;
+            return JupiterIcons.JUPITER_ICON;
         }
 
         @Override
