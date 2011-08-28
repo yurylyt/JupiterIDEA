@@ -11,6 +11,7 @@ import javax.swing.*;
  */
 public class JupiterIcons {
     public static final Icon JUPITER_ICON = IconLoader.findIcon("/icons/jupiter.gif");
+    public static final Icon ISSUE_MARKER_ICON = IconLoader.findIcon("/icons/review_marker.gif");
     public static final Icon SEVERITY_TRIVIAL = IconLoader.findIcon("/icons/severity/trivial.png");
     public static final Icon SEVERITY_MINOR = IconLoader.findIcon("/icons/severity/minor.png");
     public static final Icon SEVERITY_NORMAL = IconLoader.findIcon("/icons/severity/normal.png");

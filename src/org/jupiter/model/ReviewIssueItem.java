@@ -5,9 +5,9 @@ import com.intellij.openapi.editor.RangeMarker;
 import com.intellij.openapi.editor.event.DocumentAdapter;
 import com.intellij.openapi.editor.event.DocumentEvent;
 import com.intellij.openapi.editor.ex.MarkupModelEx;
+import com.intellij.openapi.editor.ex.RangeHighlighterEx;
 import com.intellij.openapi.editor.markup.GutterIconRenderer;
 import com.intellij.openapi.editor.markup.HighlighterLayer;
-import com.intellij.openapi.editor.markup.RangeHighlighter;
 import com.intellij.openapi.fileEditor.FileDocumentManager;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.Comparing;
@@ -19,6 +19,9 @@ import org.jupiter.model.review.ReviewIssue;
 import org.jupiter.service.ReviewManager;
 
 import javax.swing.*;
+import java.awt.*;
+import java.io.File;
+import java.net.Socket;
 
 /**
  * Author: Yuri Lytvynenko
@@ -29,7 +32,7 @@ public class ReviewIssueItem implements IssueUpdatedListener {
     private ReviewIssue reviewIssue;
     private VirtualFile myVirtualFile;
     private Project myProject;
-    private RangeHighlighter myHighlighter;
+    private RangeHighlighterEx myHighlighter;
     private Document myDocument;
     private ReviewManager reviewManager;
 
@@ -60,9 +63,10 @@ public class ReviewIssueItem implements IssueUpdatedListener {
                 line = 0;
             }
 
-            myHighlighter = markup.addLineHighlighter(line,
+            myHighlighter = (RangeHighlighterEx) markup.addLineHighlighter(line,
                     HighlighterLayer.ERROR + 1, null);
             myHighlighter.setGutterIconRenderer(new MyGutterIconRenderer(reviewIssue.getId()));
+            myHighlighter.setErrorStripeMarkColor(new Color(152, 0, 254));
             myDocument.addDocumentListener(new MyDocumentListener());
         }
 
@@ -132,7 +136,7 @@ public class ReviewIssueItem implements IssueUpdatedListener {
         @NotNull
         @Override
         public Icon getIcon() {
-            return JupiterIcons.JUPITER_ICON;
+            return JupiterIcons.ISSUE_MARKER_ICON;
         }
 
         @Override
@@ -150,6 +154,19 @@ public class ReviewIssueItem implements IssueUpdatedListener {
     private class MyDocumentListener extends DocumentAdapter {
         public void documentChanged(DocumentEvent event) {
             checkOffset();
+
         }
+    }
+
+    static public  int main(String args[]) {
+        int i = 3;
+        String s = "";
+        char c = 'd';
+        int x = 2 & 3;
+        File f;
+        Thread t;
+        return 0;
+        Socket ss;
+        wait;
     }
 }

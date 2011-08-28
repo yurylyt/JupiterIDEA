@@ -11,13 +11,17 @@
     </application-components>
 
     <project-components>
-        <component >
+        <component>
             <implementation-class>org.jupiter.idea.ui.IssuePanel</implementation-class>
         </component>
         <component>
             <implementation-class>org.jupiter.idea.ui.ReviewsView</implementation-class>
         </component>
     </project-components>
+
+    <module-components>
+
+    </module-components>
 
     <actions>
         <!-- Add your actions here -->

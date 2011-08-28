@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Review id="test">
+  <ReviewIssue id="GO8IPAMR">
+    <ReviewIssueMeta>
+      <CreationDate format="yyyy-MM-dd :: HH:mm:ss:SSS z">2011-05-28 :: 15:09:04:275 EEST</CreationDate>
+      <LastModificationDate format="yyyy-MM-dd :: HH:mm:ss:SSS z">2011-05-28 :: 15:13:28:069 EEST</LastModificationDate>
+    </ReviewIssueMeta>
+    <ReviewerId>me</ReviewerId>
+    <AssignedTo>me</AssignedTo>
+    <File line="188">src/edu/hawaii/ics/csdl/jupiter/ui/view/editor/ReviewEditorViewAction.java</File>
+    <Type>item.type.label.programLogic</Type>
+    <Severity>item.severity.label.normal</Severity>
+    <Summary>Code block??</Summary>
+    <Description>some description for the issue</Description>
+    <Annotation></Annotation>
+    <Revision>Done</Revision>
+    <Resolution>item.label.unset</Resolution>
+    <Status>item.status.label.resolved</Status>
+  </ReviewIssue>
+  <ReviewIssue id="GOK0OGWF">
+    <ReviewIssueMeta>
+      <CreationDate format="yyyy-MM-dd :: HH:mm:ss:SSS z">2011-06-05 :: 16:17:46:767 EEST</CreationDate>
+      <LastModificationDate format="yyyy-MM-dd :: HH:mm:ss:SSS z">2011-06-05 :: 16:17:57:836 EEST</LastModificationDate>
+    </ReviewIssueMeta>
+    <ReviewerId>me</ReviewerId>
+    <AssignedTo>me</AssignedTo>
+    <File line="194">src/edu/hawaii/ics/csdl/jupiter/ui/view/editor/ReviewEditorViewAction.java</File>
+    <Type>item.type.label.programLogic</Type>
+    <Severity>item.severity.label.trivial</Severity>
+    <Summary>Another issue, same file</Summary>
+    <Description></Description>
+    <Annotation></Annotation>
+    <Revision></Revision>
+    <Resolution>item.label.unset</Resolution>
+    <Status>item.status.label.open</Status>
+  </ReviewIssue>
+  <ReviewIssue id="GOK0OV6J">
+    <ReviewIssueMeta>
+      <CreationDate format="yyyy-MM-dd :: HH:mm:ss:SSS z">2011-06-05 :: 16:18:05:275 EEST</CreationDate>
+      <LastModificationDate format="yyyy-MM-dd :: HH:mm:ss:SSS z">2011-06-05 :: 16:18:22:117 EEST</LastModificationDate>
+    </ReviewIssueMeta>
+    <ReviewerId>me</ReviewerId>
+    <AssignedTo>me</AssignedTo>
+    <File line="226">src/edu/hawaii/ics/csdl/jupiter/ui/view/editor/ReviewEditorView.java</File>
+    <Type>item.type.label.programLogic</Type>
+    <Severity>item.severity.label.critical</Severity>
+    <Summary>Another issue</Summary>
+    <Description>SAVE</Description>
+    <Annotation></Annotation>
+    <Revision></Revision>
+    <Resolution>item.label.unset</Resolution>
+    <Status>item.status.label.reopened</Status>
+  </ReviewIssue>
+  <ReviewIssue id="GOK0PDJU">
+    <ReviewIssueMeta>
+      <CreationDate format="yyyy-MM-dd :: HH:mm:ss:SSS z">2011-06-05 :: 16:18:29:082 EEST</CreationDate>
+      <LastModificationDate format="yyyy-MM-dd :: HH:mm:ss:SSS z">2011-06-05 :: 16:18:45:578 EEST</LastModificationDate>
+    </ReviewIssueMeta>
+    <ReviewerId>me</ReviewerId>
+    <AssignedTo>me</AssignedTo>
+    <File line="275">src/edu/hawaii/ics/csdl/jupiter/ui/view/editor/ReviewEditorView.java</File>
+    <Type>item.type.label.programLogic</Type>
+    <Severity>item.severity.label.minor</Severity>
+    <Summary>Code fragment</Summary>
+    <Description>typeComboData.left = new FormAttachment(typeLabel, 75, SWT.LEFT);</Description>
+    <Annotation></Annotation>
+    <Revision></Revision>
+    <Resolution>item.label.unset</Resolution>
+    <Status>item.status.label.closed</Status>
+  </ReviewIssue>
+  <ReviewIssue id="GOK0Q1V9">
+    <ReviewIssueMeta>
+      <CreationDate format="yyyy-MM-dd :: HH:mm:ss:SSS z">2011-06-05 :: 16:19:00:597 EEST</CreationDate>
+      <LastModificationDate format="yyyy-MM-dd :: HH:mm:ss:SSS z">2011-06-05 :: 16:19:16:641 EEST</LastModificationDate>
+    </ReviewIssueMeta>
+    <ReviewerId>me</ReviewerId>
+    <AssignedTo>me</AssignedTo>
+    <File line="60">src/edu/hawaii/ics/csdl/jupiter/ui/view/editor/ReviewEditorViewPartListenerAdapter.java</File>
+    <Type>item.type.label.programLogic</Type>
+    <Severity>item.severity.label.normal</Severity>
+    <Summary>Multiline code snippet</Summary>
+    <Description>public void partDeactivated(IWorkbenchPart part) {
+    if (part instanceof ReviewEditorView) {
+      log.debug("part is deactviated.");
+      ReviewEditorViewAction.SAVE.run();
+    }
+  }</Description>
+    <Annotation></Annotation>
+    <Revision></Revision>
+    <Resolution>item.label.unset</Resolution>
+    <Status>item.status.label.open</Status>
+  </ReviewIssue>
+  <ReviewIssue id="GOK0Q1V8">
+    <ReviewIssueMeta>
+      <CreationDate format="yyyy-MM-dd :: HH:mm:ss:SSS z">2011-06-05 :: 16:19:00:597 EEST</CreationDate>
+      <LastModificationDate format="yyyy-MM-dd :: HH:mm:ss:SSS z">2011-06-05 :: 16:19:16:641 EEST</LastModificationDate>
+    </ReviewIssueMeta>
+    <ReviewerId>me</ReviewerId>
+    <AssignedTo>me</AssignedTo>
+    <File line="60">msrc/edu/hawaii/ics/csdl/jupiter/ui/view/editor/ReviewEditorViewPartListenerAdapter.java</File>
+    <Type>item.type.label.programLogic</Type>
+    <Severity>item.severity.label.major</Severity>
+    <Summary>Multiline code snippet</Summary>
+    <Description>public void partDeactivated(IWorkbenchPart part) {
+    if (part instanceof ReviewEditorView) {
+      log.debug("part is deactviated.");
+      ReviewEditorViewAction.SAVE.run();
+    }
+  }</Description>
+    <Annotation></Annotation>
+    <Revision></Revision>
+    <Resolution>item.label.unset</Resolution>
+    <Status>item.status.label.open</Status>
+  </ReviewIssue>
+</Review>

@@ -25,7 +25,7 @@ import java.util.Collection;
  */
 public class JupiterFacetType extends FacetType<JupiterFacet, JupiterFacetConfiguration> {
     public JupiterFacetType() {
-        super(new FacetTypeId<JupiterFacet>("jupiter"), "jupiter", "Jupiter");
+        super(new FacetTypeId<JupiterFacet>("jupiter"), "jupiter", "Jupiter2");
     }
 
     @Override
@@ -55,12 +55,12 @@ public class JupiterFacetType extends FacetType<JupiterFacet, JupiterFacetConfig
                 return createDefaultConfiguration();
             }
         };
-        VirtualFileFilter androidManifestFilter = new VirtualFileFilter() {
+        VirtualFileFilter jupiterFileFilter = new VirtualFileFilter() {
             public boolean accept(VirtualFile file) {
                 return file.getName().equals(JupiterConstants.JUPITER_CONFIG_FILE_NAME);
             }
         };
-        detectorRegistry.registerUniversalDetector(JupiterFileTypeFactory.FILE_TYPE, androidManifestFilter, detector);
+        detectorRegistry.registerUniversalDetector(JupiterFileTypeFactory.FILE_TYPE, jupiterFileFilter, detector);
     }
 
     @Override
